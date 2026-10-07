@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic Roshambo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Cosmic Animated Background -->
+  <div class="stars" aria-hidden="true"></div>
+  <div class="orb orb-a" aria-hidden="true"></div>
+  <div class="orb orb-b" aria-hidden="true"></div>
+  <div class="orb orb-c" aria-hidden="true"></div>
+
+  <main class="game-shell">
+    <header class="hero">
+      <p class="eyebrow">Cosmic Clash</p>
+      <h1>Roshambo</h1>
+      <p class="tagline">Rock, Paper, Scissors in the Nebula.</p>
+    </header>
+
+    <!-- Scoreboard HUD -->
+    <section class="hud" aria-label="Game stats">
+      <div class="stat accent">
+        <span class="stat-label">Wins</span>
+        <span class="stat-value js-score-wins">0</span>
+      </div>
+      <div class="stat danger-tint">
+        <span class="stat-label">Losses</span>
+        <span class="stat-value js-score-losses">0</span>
+      </div>
+      <div class="stat muted-tint">
+        <span class="stat-label">Ties</span>
+        <span class="stat-value js-score-ties">0</span>
+      </div>
+    </section>
+
+    <!-- Tournament HUD (Hidden by default) -->
+    <div class="tournament-hud js-tournament-hud" hidden>
+      <p class="t-title">Best of 5 Tournament</p>
+      <div class="t-scores">You: <span class="js-t-player">0</span> &nbsp;|&nbsp; CPU: <span class="js-t-cpu">0</span></div>
+    </div>
+
+    <!-- Main Game Board -->
+    <div class="board js-board" role="group" aria-label="Moves">
+      <button class="move-card js-rock-button" title="Press 'R' or click to play Rock">
+        <div class="move-inner">✊</div>
+        <span class="move-label">Rock</span>
+      </button>
+
+      <button class="move-card js-paper-button" title="Press 'P' or click to play Paper">
+        <div class="move-inner">✋</div>
+        <span class="move-label">Paper</span>
+      </button>
+
+      <button class="move-card js-scissors-button" title="Press 'S' or click to play Scissors">
+        <div class="move-inner">✌️</div>
+        <span class="move-label">Scissors</span>
+      </button>
+    </div>
+
+    <!-- Results Display -->
+    <div class="result-area">
+      <p class="status js-result">Make your move</p>
+      <p class="moves-display js-moves"></p>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button class="btn primary js-auto-play-button" type="button">Auto Play</button>
+      <button class="btn primary tournament-btn js-tournament-button" type="button">Best of 5</button>
+      <button class="btn ghost js-reset-score-button" type="button">Reset</button>
+      <button class="btn icon js-sound-button" type="button" aria-pressed="true" aria-label="Toggle sound">
+        <span class="js-sound-label">Sound On</span>
+      </button>
+    </div>
+
+    <!-- Reset Confirmation Overlay -->
+    <div class="js-reset-confirmation reset-overlay" hidden></div>
+
+    <!-- Keyboard Shortcuts -->
+    <div class="instructions">
+      <p>💡 <strong>Shortcuts:</strong> <kbd>R</kbd> <kbd>P</kbd> <kbd>S</kbd> to play. <kbd>A</kbd> to Auto.</p>
+    </div>
+  </main>
+
+  <!-- Tournament Victory Overlay -->
+  <div class="victory-overlay js-victory-overlay">
+    <div class="victory-card">
+      <p class="eyebrow">Tournament Complete</p>
+      <h2 class="js-victory-title">Victory!</h2>
+      <p class="js-victory-subtitle">You achieved cosmic dominance.</p>
+      <button class="btn primary js-victory-close" style="margin-top: 20px;">Play Again</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
