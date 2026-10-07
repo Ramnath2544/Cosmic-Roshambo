@@ -1,84 +1,65 @@
-# Rock Paper Scissors
+# 🌌 Cosmic Roshambo
 
-A polished browser game built with HTML, CSS, and JavaScript. Play classic Rock Paper Scissors against a randomized computer opponent, track your record, use keyboard shortcuts, and keep your score between sessions with `localStorage`.
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-![HTML](https://img.shields.io/badge/HTML5-structure-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS3-styling-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-game_logic-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Static App](https://img.shields.io/badge/App-static_site-2EA44F?style=for-the-badge)
+**Cosmic Roshambo** is an immersive, space-themed take on the classic Rock, Paper, Scissors game. Built completely with vanilla web technologies, it features a glassmorphic user interface, dynamic particle backgrounds, and synthesized sound effects generated entirely via the Web Audio API.
 
-## Preview
+---
 
-https://github.com/user-attachments/assets/1790660d-bac6-4e8d-bd60-37f26d0117c3
+## ✨ Features
 
-## Highlights
+*   **Glassmorphic UI:** A sleek, modern interface with blurred backdrops, glowing orbs, and animated twinkling stars.
+*   **Web Audio Synths:** Custom-generated sound effects for clicks, wins, losses, and ties (no external audio files required).
+*   **Persistent Memory:** Your cosmic score (Wins, Losses, Ties) and sound preferences are automatically saved to `localStorage`.
+*   **Auto Play Mode:** Sit back and let the computer battle against itself at 1.2-second intervals.
+*   **Keyboard Accessibility:** Full keyboard support for blazing-fast gameplay.
+*   **Responsive Design:** Flawlessly adapts to desktop, tablet, and mobile screens.
 
-- Interactive Rock, Paper, and Scissors buttons with animated feedback.
-- Random computer move generation for every round.
-- Live win, loss, and tie tracking.
-- Persistent score storage using browser `localStorage`.
-- Reset confirmation flow to avoid accidental score clearing.
-- Auto Play mode that runs a new round every second.
-- Keyboard controls for quick, mouse-free gameplay.
-- Responsive layout for desktop and smaller screens.
+---
 
-## Controls
+## 🎮 How to Play
 
-| Action | Mouse | Keyboard |
-| --- | --- | --- |
-| Play Rock | Rock button | `R` |
-| Play Paper | Paper button | `P` |
-| Play Scissors | Scissors button | `S` |
-| Toggle Auto Play | Auto Play button | `A` |
-| Reset Score | Reset Score button | `Backspace` |
+Choose your weapon to defeat the CPU. 
+*   ✊ **Rock** beats Scissors
+*   ✋ **Paper** beats Rock
+*   ✌️ **Scissors** beats Paper
 
-## How It Works
+### ⌨️ Keyboard Shortcuts
+For the fastest response times, use your keyboard:
+*   <kbd>R</kbd> - Play **Rock**
+*   <kbd>P</kbd> - Play **Paper**
+*   <kbd>S</kbd> - Play **Scissors**
+*   <kbd>A</kbd> - Toggle **Auto Play**
+*   <kbd>Backspace</kbd> - Trigger **Reset** confirmation
 
-1. Choose Rock, Paper, or Scissors.
-2. The computer picks a random move.
-3. The game compares both choices and displays the result.
-4. The scoreboard updates immediately.
-5. The latest score is saved in the browser and restored when you return.
+---
 
-## Project Structure
+## 🚀 Quick Start
 
-```text
-.
-|-- Rock-Paper-Scissors.html
-|-- Rock-Paper-Scissors Project.css
-|-- Rock-Paper-Scissors Project.js
-|-- README.md
-`-- images/
-    |-- paper-emoji.png
-    |-- rock-emoji.png
-    `-- scissors-emoji.png
-```
+Since this project uses pure HTML, CSS, and JavaScript with no build tools or dependencies, getting started is instant.
 
-## Run Locally
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/yourusername/cosmic-roshambo.git](https://github.com/yourusername/cosmic-roshambo.git)
 
-No build step or dependencies are required.
+2. **Navigate to the directory:**
+   cd cosmic-roshambo
 
-1. Clone or download the repository.
-2. Open `Rock-Paper-Scissors.html` in a browser.
-3. Start playing.
+3. **Run the game:**
+   Simply double-click index.html to open it in your default web browser. Alternatively, use a local server like VS Code's Live Server extension for hot reloading.
 
-## Tech Stack
+##📁 Project Structure
+cosmic-roshambo/
+├── index.html    # Layout, game board, and SVG structural elements
+├── style.css     # Glassmorphism, animations, and responsive layout
+└── script.js     # Game logic, Web Audio API engine, and state management
 
-- `HTML5` for the game markup.
-- `CSS3` for responsive styling, gradients, hover states, and animations.
-- `JavaScript` for game logic, score updates, keyboard shortcuts, auto play, and storage.
+##🛠️ Technical Highlights
+CSS Animations: Utilizes @keyframes for the drifting background orbs, twinkling star layers, and responsive UI feedback (pulses, shakes, and pops based on match results).
 
-## Notable Implementation Details
+AudioContext API: Instead of loading .mp3 or .wav files, the game generates geometric waveforms (sine, square, sawtooth, triangle) on the fly for retro-futuristic sound effects.
 
-- Uses `Math.random()` to select the computer move.
-- Stores score as JSON in `localStorage`.
-- Includes a storage availability check with an in-memory fallback.
-- Applies result-specific styles for wins, losses, and ties.
-- Uses event listeners for button clicks and keyboard input.
-
-## Future Improvements
-
-- Add sound effects and mute controls.
-- Add match history for recent rounds.
-- Add difficulty modes or streak tracking.
-- Add a dedicated accessibility pass for ARIA labels and focus states.
+##📄 License
+This project is open-source and available under the MIT License. Feel free to fork, modify, and use it in your own cosmic creations!
