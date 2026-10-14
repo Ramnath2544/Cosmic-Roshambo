@@ -8,12 +8,16 @@ const autoPlayBtn = document.querySelector('.js-auto-play-button');
 const soundBtn = document.querySelector('.js-sound-button');
 const soundLabel = document.querySelector('.js-sound-label');
 const resetConfirmContainer = document.querySelector('.js-reset-confirmation');
+const volumeUpBtn = document.querySelector('.js-volume-up');
+const volumeDownBtn = document.querySelector('.js-volume-down');
+const volumeValue = document.querySelector('.js-volume-value');
 
 // --- State Management ---
 let score = JSON.parse(localStorage.getItem('cosmicRPSScore')) || { wins: 0, losses: 0, ties: 0 };
 let isAutoPlaying = false;
 let intervalId;
 let soundOn = localStorage.getItem("cosmicRPSSound") !== "off";
+let volume = parseFloat(localStorage.getItem("cosmicRPSVolume")) || 0.7;
 let audioContext = null;
 
 const emojis = { rock: '✊', paper: '✋', scissors: '✌️' };
@@ -21,6 +25,7 @@ const emojis = { rock: '✊', paper: '✋', scissors: '✌️' };
 // Initialize UI
 updateScoreElement();
 updateSoundButton();
+updateVolumeDisplay();
 
 // --- Audio Engine (Web Audio API) ---
 function ensureAudio() {
@@ -39,19 +44,19 @@ function playTone(kind) {
 
   const now = audioContext.currentTime;
   const patterns = {
-    click: [{ freq: 420, dur: 0.06, type: "square", gain: 0.05 }],
+    click: [{ freq: 420, dur: 0.06, type: "square", gain: 0.15 * volume }],
     win: [
-      { freq: 523.25, dur: 0.12, type: "sine", gain: 0.09 },
-      { freq: 659.25, dur: 0.16, type: "sine", gain: 0.08, delay: 0.08 },
-      { freq: 1046.5, dur: 0.28, type: "triangle", gain: 0.07, delay: 0.24 },
+      { freq: 523.25, dur: 0.12, type: "sine", gain: 0.25 * volume },
+      { freq: 659.25, dur: 0.16, type: "sine", gain: 0.23 * volume, delay: 0.08 },
+      { freq: 1046.5, dur: 0.28, type: "triangle", gain: 0.20 * volume, delay: 0.24 },
     ],
     lose: [
-      { freq: 180, dur: 0.2, type: "sawtooth", gain: 0.06 },
-      { freq: 150, dur: 0.3, type: "sawtooth", gain: 0.06, delay: 0.15 }
+      { freq: 180, dur: 0.2, type: "sawtooth", gain: 0.18 * volume },
+      { freq: 150, dur: 0.3, type: "sawtooth", gain: 0.18 * volume, delay: 0.15 }
     ],
     tie: [
-      { freq: 330, dur: 0.15, type: "triangle", gain: 0.05 },
-      { freq: 330, dur: 0.15, type: "triangle", gain: 0.05, delay: 0.2 }
+      { freq: 330, dur: 0.15, type: "triangle", gain: 0.15 * volume },
+      { freq: 330, dur: 0.15, type: "triangle", gain: 0.15 * volume, delay: 0.2 }
     ]
   };
 
@@ -83,6 +88,46 @@ function toggleSound() {
 function updateSoundButton() {
   soundLabel.textContent = soundOn ? "Sound On" : "Sound Off";
   soundBtn.setAttribute("aria-pressed", String(soundOn));
+}
+
+// --- Volume Control ---
+function increaseVolume() {
+  if (volume < 1.0) {
+    volume = Math.min(1.0, volume + 0.1);
+    localStorage.setItem("cosmicRPSVolume", volume);
+    updateVolumeDisplay();
+    playTone("click");
+  }
+}
+
+function decreaseVolume() {
+  if (volume > 0) {
+    volume = Math.max(0, volume - 0.1);
+    localStorage.setItem("cosmicRPSVolume", volume);
+    updateVolumeDisplay();
+    playTone("click");
+  }
+}
+
+function updateVolumeDisplay() {
+  const percentage = Math.round(volume * 100);
+  volumeValue.textContent = `${percentage}%`;
+  
+  // Update button states
+  volumeUpBtn.disabled = volume >= 1.0;
+  volumeDownBtn.disabled = volume <= 0;
+  
+  // Update icon based on volume level
+  const volumeIcon = document.querySelector('.volume-icon');
+  if (volume === 0) {
+    volumeIcon.textContent = '🔇';
+  } else if (volume < 0.3) {
+    volumeIcon.textContent = '🔈';
+  } else if (volume < 0.7) {
+    volumeIcon.textContent = '🔉';
+  } else {
+    volumeIcon.textContent = '🔊';
+  }
 }
 
 // --- Game Logic ---
@@ -203,6 +248,8 @@ document.querySelector('.js-scissors-button').addEventListener('click', () => pl
 autoPlayBtn.addEventListener('click', autoPlay);
 soundBtn.addEventListener('click', toggleSound);
 document.querySelector('.js-reset-score-button').addEventListener('click', showResetConfirmation);
+volumeUpBtn.addEventListener('click', increaseVolume);
+volumeDownBtn.addEventListener('click', decreaseVolume);
 
 document.body.addEventListener('keydown', (event) => {
   if (event.key.toLowerCase() === 'r') {
@@ -219,4 +266,12 @@ document.body.addEventListener('keydown', (event) => {
   }
   else if (event.key.toLowerCase() === 'a') autoPlay();
   else if (event.key === 'Backspace') showResetConfirmation();
+  else if (event.key === 'ArrowUp' || event.key === '+' || event.key === '=') {
+    event.preventDefault();
+    increaseVolume();
+  }
+  else if (event.key === 'ArrowDown' || event.key === '-' || event.key === '_') {
+    event.preventDefault();
+    decreaseVolume();
+  }
 });
